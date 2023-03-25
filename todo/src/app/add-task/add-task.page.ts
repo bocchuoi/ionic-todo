@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-add-task',
@@ -14,8 +15,9 @@ export class AddTaskPage implements OnInit {
   taskPriority: any
   taskCategory: any
   taskObject = {}
+  msg: any
 
-  constructor(public modalCtrl:ModalController) { }
+  constructor(public modalCtrl:ModalController, public todoService:TodoService) { }
 
   ngOnInit() {
   }
@@ -29,12 +31,28 @@ export class AddTaskPage implements OnInit {
   }
 
   async addTask() {
+
+
+    // id is the number of all the todo items + 1
+    let newItemId = await this.todoService.getNumTask() + 1
+
     this.taskObject = {
       name: this.taskName,
       dueDate: this.taskDate,
       priority: this.taskPriority,
       category: this.taskCategory
     }
-    await this.modalCtrl.dismiss(this.taskObject)
+
+
+    // check if name and date are empty
+    if (this.taskName && this.taskDate) {
+      await this.todoService.addTask(newItemId.toString(), this.taskObject)
+      await this.modalCtrl.dismiss(this.taskObject)
+    }
+    else {
+      this.msg = "taskName & taskDate can't be empty!";
+      console.log("taskName & taskDate can't be empty!")
+    }
+
   }
 }

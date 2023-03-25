@@ -39,6 +39,10 @@
       <ion-datetime [(ngModel)]="taskDate" displayFormat="YYYY MM D H:mm"></ion-datetime>
     </ion-item>
 
+    <ion-item>
+      <ion-label style="color:red">{{msg}}</ion-label>
+    </ion-item>
+
     <ion-button class="ion-margin" expand="block" (click)="addTask()">Add</ion-button>
 
 

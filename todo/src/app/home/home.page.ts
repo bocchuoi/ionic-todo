@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import {subDays} from 'date-fns';
 import { AddTaskPage } from '../add-task/add-task.page';
+import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-home',
@@ -14,19 +15,19 @@ export class HomePage {
   
   todoItems = [
   {
-    name: 'coding',
+    name: 'Coding',
     dueDate: '2023-03-22',
     priority: 'high',
     category: 'work'
   },
   {
-    name: 'xxxx',
+    name: 'Fishing',
     dueDate: '2023-03-22',
     priority: 'low',
     category: 'work'
   },
   {
-    name: 'xxxx',
+    name: 'Gambling',
     dueDate: '2023-03-22',
     priority: 'mid',
     category: 'work'
@@ -34,15 +35,16 @@ export class HomePage {
 ]
 
 presentDay: number = Date.now()
-  constructor(public modalCtrl:ModalController) {}
+  constructor(public modalCtrl:ModalController, public todoService:TodoService) {
+    this.getAllTask()
+  }
 
-  async  addNewTask() {
+  async addNewTask() {
     const modal = await this.modalCtrl.create({
       component: AddTaskPage
     })
 
     modal.onDidDismiss().then(newTaskObject=>{
-      console.log(newTaskObject.data);
       this.todoItems.push(newTaskObject.data)
     })
 
@@ -51,6 +53,10 @@ presentDay: number = Date.now()
 
   remove(index:number) {
     this.todoItems.splice(index,1)
+  }
+
+  getAllTask() {
+    // this.todoItems = this.todoService.getAllTasks()
   }
 
 }
