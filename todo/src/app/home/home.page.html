@@ -3,7 +3,7 @@
     <ion-item lines="none">
       <ion-label style="font-weight: 900; font-size: 2.8em;">
         Today
-        <p style="font-weight: 500;">{{x | date:'fullDate'}}</p>
+        <p style="font-weight: 500;">{{presentDay | date:'fullDate'}}</p>
       </ion-label>
     </ion-item>
   </ion-toolbar>
@@ -13,7 +13,7 @@
   <ion-card *ngFor="let item of todoItems; let i = index">
     <ion-card-header>
       <ion-card-subtitle [style.color]="item.priority === 'high' ? 'red' : (item.priority === 'low' ? 'green' : 'yellow')">
-        {{item.category}}
+        {{item.category}} ({{item.priority}} priority)
       </ion-card-subtitle>
       <ion-item>
         <ion-icon size="small" name="fish-outline"></ion-icon>
@@ -22,7 +22,9 @@
     </ion-card-header>
 
     <ion-card-content>
-      <ion-label>Due on: {{item.dueDate | date: 'fullDate'}}</ion-label>
+      <ion-label *ngIf="item.daysUntilDue <= 0" style="color:rgb(246, 5, 13)">Item is overdue by {{item.daysUntilDue * -1}} days</ion-label>
+      <ion-label *ngIf="item.daysUntilDue <= 3 && item.daysUntilDue > 0" style="color:rgb(217, 255, 0)">Due on: {{item.dueDate | date: 'fullDate'}} | {{item.daysUntilDue}} days remain</ion-label>
+      <ion-label *ngIf="item.daysUntilDue > 3" style="color:rgb(0, 255, 76)">Due on: {{item.dueDate | date: 'fullDate'}} | {{item.daysUntilDue}} days remain</ion-label>
     </ion-card-content>
 
     <ion-row>

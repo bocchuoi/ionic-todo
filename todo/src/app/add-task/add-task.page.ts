@@ -68,11 +68,13 @@ export class AddTaskPage implements OnInit {
       let newItemId: number = 0
       // add if true
       if (Object.keys(this.task).length === 0) {
-        let newItemId = await this.todoService.getNumTask() + 1
+        newItemId = await this.todoService.getNumTask() + 1
       }
       else {
         newItemId = this.task.id
+        this.task = {}
       }
+      console.log(newItemId)
       await this.todoService.addTask(newItemId.toString(), this.taskObject)
       await this.modalCtrl.dismiss(this.taskObject)
     }

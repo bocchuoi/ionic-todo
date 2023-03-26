@@ -11,8 +11,6 @@ import { TodoService } from '../todo.service';
 })
 export class HomePage {
 
-  x = (new Date()).valueOf() - (new Date("2023-03-22")).valueOf() / (1000*60*60*24)
-  
   todoItems:any = []
   presentDay: number = Date.now()
 

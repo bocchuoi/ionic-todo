@@ -24,11 +24,17 @@ export class TodoService {
 
   async getAllTasks() {
     let tasks: any = []
+    let today = Date.now()
 
     let keys = await this.storage.keys()
     for (var key of keys) {
       const val = await this.storage.get(key);
       val.id = key
+      
+      const daysUntilDue = ((new Date(val.dueDate)).getTime() - today) / (1000*60*60*24)
+      // round to 2 decimal place
+      val.daysUntilDue = Math.round(daysUntilDue * 100) / 100
+
       tasks.push(val)
     }
     return tasks
