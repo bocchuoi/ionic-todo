@@ -14,22 +14,23 @@ export class TodoService {
     this.storage.set(key, val)
   }
 
-  deleteTask() {
-
+  async deleteTask(id: string) {
+    await this.storage.remove(id)
   }
 
   update() {
 
   }
 
-  getAllTasks() {
+  async getAllTasks() {
     let tasks: any = []
-    this.storage.forEach((val, key) => {
-      val.key = key
-      tasks.push(key)
-    })
-    console.log(tasks)
-    console.log(tasks[0])
+
+    let keys = await this.storage.keys()
+    for (var key of keys) {
+      const val = await this.storage.get(key);
+      val.id = key
+      tasks.push(val)
+    }
     return tasks
   }
 
@@ -39,5 +40,9 @@ export class TodoService {
 
   async getNumTask() {
     return await this.storage.length()
+  }
+
+  async clearStorage() {
+    await this.storage.clear()
   }
 }

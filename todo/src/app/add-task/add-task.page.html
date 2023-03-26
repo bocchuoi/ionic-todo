@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Add Task</ion-title>
+    <ion-title>{{btnMsg}} Task</ion-title>
     <ion-icon name="close" slot="end" (click)="close()" size="large" class="ion-padding"></ion-icon>
   </ion-toolbar>
 </ion-header>
@@ -43,7 +43,7 @@
       <ion-label style="color:red">{{msg}}</ion-label>
     </ion-item>
 
-    <ion-button class="ion-margin" expand="block" (click)="addTask()">Add</ion-button>
+    <ion-button class="ion-margin" expand="block" (click)="addTask()">{{btnMsg}}</ion-button>
 
 
   </ion-card>

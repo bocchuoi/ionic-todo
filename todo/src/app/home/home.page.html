@@ -26,11 +26,11 @@
     </ion-card-content>
 
     <ion-row>
-      <ion-item>
-        <ion-icon name="checkmark"></ion-icon>
-        <p>Completed</p>
+      <ion-item button (click)="addNewTask(item)">
+        <ion-icon name="telescope-outline"></ion-icon>
+        <p>Update</p>
       </ion-item>
-      <ion-item button (click)="remove(i)">
+      <ion-item button (click)="remove(item.id)">
         <ion-icon name="trash"></ion-icon>
         <p>Remove</p>
       </ion-item>
@@ -38,7 +38,7 @@
   </ion-card>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="addNewTask()">
+    <ion-fab-button (click)="addNewTask({})">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

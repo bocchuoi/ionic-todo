@@ -13,50 +13,37 @@ export class HomePage {
 
   x = (new Date()).valueOf() - (new Date("2023-03-22")).valueOf() / (1000*60*60*24)
   
-  todoItems = [
-  {
-    name: 'Coding',
-    dueDate: '2023-03-22',
-    priority: 'high',
-    category: 'work'
-  },
-  {
-    name: 'Fishing',
-    dueDate: '2023-03-22',
-    priority: 'low',
-    category: 'work'
-  },
-  {
-    name: 'Gambling',
-    dueDate: '2023-03-22',
-    priority: 'mid',
-    category: 'work'
-  },
-]
+  todoItems:any = []
+  presentDay: number = Date.now()
 
-presentDay: number = Date.now()
   constructor(public modalCtrl:ModalController, public todoService:TodoService) {
     this.getAllTask()
   }
 
-  async addNewTask() {
+  async addNewTask(selectedTask:any) {
     const modal = await this.modalCtrl.create({
-      component: AddTaskPage
+      component: AddTaskPage,
+      componentProps: {task: selectedTask}
+
     })
 
-    modal.onDidDismiss().then(newTaskObject=>{
-      this.todoItems.push(newTaskObject.data)
+    modal.onDidDismiss().then(()=>{
+      this.getAllTask()
     })
 
     return await modal.present()
   }
 
-  remove(index:number) {
-    this.todoItems.splice(index,1)
+  remove(id:string) {
+    this.todoService.deleteTask(id)
+    this.getAllTask()
   }
 
-  getAllTask() {
-    // this.todoItems = this.todoService.getAllTasks()
+  async getAllTask() {
+    // let x = await this.todoService.getAllTasks()
+    this.todoItems = await this.todoService.getAllTasks()
+    // console.log(x)
   }
+
 
 }
