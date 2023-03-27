@@ -42,7 +42,6 @@ export class HomePage {
   async getAllTask() {
     // let x = await this.todoService.getAllTasks()
     this.todoItems = await this.todoService.getAllTasks()
-    console.log(this.todoItems)
   }
 
 
