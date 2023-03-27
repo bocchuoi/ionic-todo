@@ -11,11 +11,13 @@ import { TodoService } from '../todo.service';
 })
 export class HomePage {
 
-  todoItems:any = []
+  todoItems:any
   presentDay: number = Date.now()
 
   constructor(public modalCtrl:ModalController, public todoService:TodoService) {
+    // this.todoService.clearStorage()
     this.getAllTask()
+
   }
 
   async addNewTask(selectedTask:any) {
@@ -40,7 +42,7 @@ export class HomePage {
   async getAllTask() {
     // let x = await this.todoService.getAllTasks()
     this.todoItems = await this.todoService.getAllTasks()
-    // console.log(x)
+    console.log(this.todoItems)
   }
 
 

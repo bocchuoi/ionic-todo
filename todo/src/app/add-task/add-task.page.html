@@ -13,6 +13,11 @@
     </ion-item>
 
     <ion-item>
+      <ion-textarea [autoGrow]="true" [(ngModel)]="taskDetail" placeholder="Task Details...">
+      </ion-textarea>
+    </ion-item>
+    
+    <ion-item>
       <ion-label>Priority</ion-label>
       <ion-select [(ngModel)]="taskPriority">
         <ion-select-option value="low">Low</ion-select-option>

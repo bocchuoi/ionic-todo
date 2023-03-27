@@ -21,13 +21,25 @@
         <!-- <ion-icon size="small" name="document-text-outline"></ion-icon> -->
         <ion-icon size="small" name="flag-outline" [style.color]="item.priority === 'high' ? 'red' : (item.priority === 'low' ? 'green' : 'orange')"></ion-icon>
         <ion-label>{{item.name}}</ion-label>
+
       </ion-item>
     </ion-card-header>
 
     <ion-card-content>
-      <ion-label *ngIf="item.daysUntilDue <= 0" style="color:white;background-color:rgb(246, 5, 13)">Item is overdue by {{item.daysUntilDue * -1}} days</ion-label>
-      <ion-label *ngIf="item.daysUntilDue <= 3 && item.daysUntilDue > 0" style="color:white;background-color:rgb(255, 123, 0)">Due on: {{item.dueDate | date: 'fullDate'}} | {{item.daysUntilDue}} days remain</ion-label>
-      <ion-label *ngIf="item.daysUntilDue > 3" style="color:white;background-color:rgb(8, 99, 36)">Due on: {{item.dueDate | date: 'fullDate'}} | {{item.daysUntilDue}} days remain</ion-label>
+      <ion-row>
+        <ion-item>
+          {{item.detail}}
+        </ion-item>
+      </ion-row>
+        <ion-item>
+          <ion-label *ngIf="item.daysUntilDue <= 0" style="color:white;background-color:rgb(246, 5, 13)">Item is overdue by {{item.daysUntilDue * -1}} days</ion-label>
+          <ion-label *ngIf="item.daysUntilDue <= 3 && item.daysUntilDue > 0" style="color:white;background-color:rgb(255, 123, 0)">Due on: {{item.dueDate | date: 'fullDate'}} | {{item.daysUntilDue}} days remain</ion-label>
+          <ion-label *ngIf="item.daysUntilDue > 3" style="color:white;background-color:rgb(8, 99, 36)">Due on: {{item.dueDate | date: 'fullDate'}} | {{item.daysUntilDue}} days remain</ion-label>
+        </ion-item>
+      <ion-row>
+
+      </ion-row>
+
     </ion-card-content>
 
     <ion-row>

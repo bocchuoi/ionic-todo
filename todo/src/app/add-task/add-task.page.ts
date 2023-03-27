@@ -15,6 +15,7 @@ export class AddTaskPage implements OnInit {
   taskDate: any
   taskPriority: any
   taskCategory: any
+  taskDetail: any
   taskObject = {}
   msg: any
 
@@ -28,6 +29,7 @@ export class AddTaskPage implements OnInit {
       this.taskDate = this.task.dueDate
       this.taskPriority = this.task.priority
       this.taskCategory = this.task.category
+      this.taskDetail = this.task.detail
     }
     else {
       this.btnMsg = 'Add'
@@ -51,23 +53,16 @@ export class AddTaskPage implements OnInit {
       name: this.taskName,
       dueDate: this.taskDate,
       priority: this.taskPriority,
-      category: this.taskCategory
+      category: this.taskCategory,
+      detail: this.taskDetail
     }
 
-
-
-
-
-    // id is the number of all the todo items + 1
-
-
-
-
     // make sure all the fields are filled in
-    if (this.taskName && this.taskDate && this.taskPriority && this.taskCategory) {
+    if (this.taskDetail && this.taskName && this.taskDate && this.taskPriority && this.taskCategory) {
       let newItemId: number = 0
       // add if true
       if (Object.keys(this.task).length === 0) {
+        // id is the number of all the todo items + 1
         newItemId = await this.todoService.getNumTask() + 1
       }
       else {
@@ -79,7 +74,6 @@ export class AddTaskPage implements OnInit {
       await this.modalCtrl.dismiss(this.taskObject)
     }
     else {
-      console.log(this.taskDate)
       this.msg = "Make sure name, date, priorty and category are filled in!";
     }
 
