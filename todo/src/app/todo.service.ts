@@ -26,31 +26,23 @@ export class TodoService {
     let tasks: any = []
     let today = Date.now()
     let keys = await this.storage.keys()
+    console.log(keys)
+    let cats = await this.getCats()
+    for(var cat of cats) {
+      tasks[cat] = []
+    }
 
     for (var key of keys) {
+      if (key == "cats") {
+        continue
+      }
       const val = await this.storage.get(key);
       val.id = key
       const daysUntilDue = ((new Date(val.dueDate)).getTime() - today) / (1000*60*60*24)
       // round to 2 decimal place
       val.daysUntilDue = Math.round(daysUntilDue * 100) / 100
 
-      let foundTheCat = false
-      // {
-      //   category: "",
-      //   tasks: []
-      // }
-      //  add task to object of same cat
-      for (var item of tasks) {
-        if (item.category == val.category) {
-          item.tasks.push(val)
-          foundTheCat = true
-        }
-      }
-      // if the cat doesn't exist create a new one
-      if (!foundTheCat) {
-        tasks.push({category: val.category, tasks: [val]})
-      }
-
+      tasks[val.category].push(val)
     }
 
     return tasks
@@ -66,5 +58,13 @@ export class TodoService {
 
   async clearStorage() {
     await this.storage.clear()
+  }
+
+  async addCat(cats:any) {
+    await this.storage.set('cats', cats)
+  }
+
+  async getCats() {
+    return await this.storage.get('cats')
   }
 }

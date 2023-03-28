@@ -30,6 +30,17 @@ ion-content {
   --background: rgb(14, 14, 122);
 }
 
+.cat-container {
+  --background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%);
+}
+
+
+.cat-container ion-card-subtitle {
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: rgb(255, 255, 255);
+}
+
 ion-icon {
   margin-right: 5px;
 }

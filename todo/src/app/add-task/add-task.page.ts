@@ -10,7 +10,7 @@ import { TodoService } from '../todo.service';
 export class AddTaskPage implements OnInit {
   @Input() task:any;
   btnMsg = ''
-  cats = ['Work', 'School', 'Social']
+  cats:any = []
   taskName: any
   taskDate: any
   taskPriority: any
@@ -33,10 +33,16 @@ export class AddTaskPage implements OnInit {
     }
     else {
       this.btnMsg = 'Add'
-
     }
 
+    // retrieve the cats from storage
+    this.getCats()
 
+
+  }
+
+  async getCats() {
+    this.cats = await this.todoService.getCats()
   }
 
   async close() {
