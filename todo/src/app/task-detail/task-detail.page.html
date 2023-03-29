@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{taskObj.name}}</ion-title>
+    <ion-icon name="close" slot="end" (click)="close()" size="large" class="ion-padding"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-label>Category</ion-label>
+      <ion-label class="ion-text-end">{{taskObj.category}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Due Date</ion-label>
+      <ion-label text-wrap class="ion-text-end">{{taskObj.dueDate | date: 'fullDate'}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-text>
+        {{taskObj.detail}}
+      </ion-text>
+    </ion-item>
+    
+  </ion-card>
+
+
+</ion-content>

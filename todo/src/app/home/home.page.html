@@ -1,8 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-item lines="none">
-      <ion-label style="font-weight: 900; font-size: 2.8em;">
-        Today
+      <ion-label style="font-weight: 900; font-size: 2.4em;">
+        Doable
         <p style="font-weight: 500;">{{presentDay | date:'fullDate'}}</p>
       </ion-label>
     </ion-item>
@@ -23,7 +23,7 @@
         <ion-card-header>
           <ion-card-subtitle>
           </ion-card-subtitle>
-          <ion-item>
+          <ion-item button (click)="taskDetail(item)">
             <!-- <ion-icon size="small" name="document-text-outline"></ion-icon> -->
             <ion-icon size="small" name="flag-outline" [style.color]="item.priority === 'high' ? 'red' : (item.priority === 'low' ? 'green' : 'orange')"></ion-icon>
             <ion-label>{{item.name}}</ion-label>
@@ -32,22 +32,20 @@
         <ion-card-content>
           <ion-row>
             <ion-item>
-              {{item.detail}}
+              {{item.shortenedDetail}}
             </ion-item>
           </ion-row>
-            <ion-item>
-              <ion-label class="due-label" text-wrap *ngIf="item.daysUntilDue <= 0" style="color:white; background-color:rgb(246, 5, 13)">Item is overdue by {{item.daysUntilDueFormatted}}</ion-label>
-              <ion-label class="due-label" text-wrap *ngIf="item.daysUntilDue <= 3 && item.daysUntilDue > 0" style="color:white; background-color:rgb(255, 123, 0)">
-                <ion-row>Due on: {{item.dueDate| date: 'fullDate'}}</ion-row>
-                {{item.daysUntilDueFormatted}} remain
-              </ion-label>
-              <ion-label class="due-label" text-wrap *ngIf="item.daysUntilDue > 3" style="color:white; background-color:rgb(8, 99, 36)">
-                <ion-row>Due on: {{item.dueDate | date: 'fullDate'}}</ion-row>
-                {{item.daysUntilDueFormatted}} remain
-              </ion-label>
-            </ion-item>
-          <ion-row>
-          </ion-row>
+          <ion-item>
+            <ion-label class="due-label" text-wrap *ngIf="item.daysUntilDue <= 0" style="color:white; background-color:rgb(246, 5, 13)">Overdue by {{item.daysUntilDueFormatted}}</ion-label>
+            <ion-label class="due-label" text-wrap *ngIf="item.daysUntilDue <= 3 && item.daysUntilDue > 0" style="color:white; background-color:rgb(255, 123, 0)">
+              <ion-row>Due: {{item.dueDate | date: 'fullDate'}}</ion-row>
+              {{item.daysUntilDueFormatted}} remain
+            </ion-label>
+            <ion-label class="due-label" text-wrap *ngIf="item.daysUntilDue > 3" style="color:white; background-color:rgb(8, 99, 36)">
+              <ion-row>Due: {{item.dueDate | date: 'fullDate'}}</ion-row>
+              {{item.daysUntilDueFormatted}} remain
+            </ion-label>
+          </ion-item>
         </ion-card-content>
         <ion-row>
           <ion-item button (click)="addNewTask(item)">

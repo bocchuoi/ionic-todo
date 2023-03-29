@@ -10,14 +10,14 @@ import { TodoService } from '../todo.service';
 export class AddTaskPage implements OnInit {
   @Input() task:any;
   btnMsg = ''
-  cats:any = []
-  taskName: any
-  taskDate: any
-  taskPriority: any
-  taskCategory: any
-  taskDetail: any
+  cats:string[] = []
+  taskName:string = ''
+  taskDate:number = 0
+  taskPriority:string = ''
+  taskCategory:string = ''
+  taskDetail:string = ''
   taskObject = {}
-  msg: any
+  msg:string = ''
 
   constructor(public modalCtrl:ModalController, public todoService:TodoService) { }
 

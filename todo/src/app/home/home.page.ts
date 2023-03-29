@@ -4,6 +4,7 @@ import {subDays} from 'date-fns';
 import { AddTaskPage } from '../add-task/add-task.page';
 import { TodoService } from '../todo.service';
 import { FormControl } from '@angular/forms'
+import { TaskDetailPage } from '../task-detail/task-detail.page';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +16,8 @@ export class HomePage {
   searchField: FormControl
   todoItems:any
   presentDay: number = Date.now()
-  cats:any
-
+  cats:string[] = []
+ 
   constructor(public modalCtrl:ModalController, public todoService:TodoService) {
     // this.todoService.clearStorage()
     this.searchField = new FormControl("")
@@ -59,6 +60,15 @@ export class HomePage {
     return await modal.present()
   }
 
+  async taskDetail(selectedTask:any) {
+    const modal = await this.modalCtrl.create({
+      component: TaskDetailPage,
+      componentProps: {task: selectedTask}
+    })
+
+    return await modal.present()
+  }
+
   remove(id:string) {
     this.todoService.deleteTask(id)
     this.getAllTask()
@@ -67,8 +77,17 @@ export class HomePage {
   async getAllTask() {
     await this.todoService.addCat(['Work', 'School', 'Social'])
     this.todoItems = await this.todoService.getAllTasks()
-    // get the only cats that has tasks
-    this.cats = this.todoService.getAvailableCats()
+    this.getOnDutyCats()
+    console.log(this.todoItems)
+
   }
+
+  // get only the cats that have tasks
+  getOnDutyCats() {
+    this.cats = []
+    for (var cat in this.todoItems) {
+      this.cats.push(cat)
+    }
+  } 
 
 }

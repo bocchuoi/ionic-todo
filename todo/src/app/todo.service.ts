@@ -6,7 +6,6 @@ import { Storage } from '@ionic/storage-angular'
 })
 export class TodoService {
 
-  cats: string[] = []
   aDayInMilisec = 1000*60*60*24
 
   constructor(private storage: Storage) {
@@ -33,44 +32,44 @@ export class TodoService {
     return days + " day " + hours + " hour " + minutes + " minute";
   }
 
+  // stolen from stackoverflow
+  shorten(str:string, maxLen:number, separator = ' ') {
+    if (str.length <= maxLen) return str;
+    return str.substr(0, str.lastIndexOf(separator, maxLen)) + "...";
+  }
+
   async getAllTasks() {
     let tasks: any[] = []
     let today = Date.now()
     let keys = await this.storage.keys()
 
-    // reset the cats
-    this.cats = []
-    
     for (var key of keys) {
       if (key == "cats") {
         continue
       }
       const val = await this.storage.get(key);
       val.id = key
+
+      // adding calculated attributes to task object
       const daysUntilDue = ((new Date(val.dueDate)).getTime() - today)
       const daysUntilDueFormatted = this.dhm(daysUntilDue)
       // round to 2 decimal place
       val.daysUntilDue = Math.round(daysUntilDue * 100) / (this.aDayInMilisec*100)
       val.daysUntilDueFormatted = daysUntilDueFormatted
+      val.shortenedDetail = this.shorten(val.detail, 100)
 
       if (tasks[val.category]) {
         tasks[val.category].push(val)
       }
       else {
-        this.cats.push(val.category)
         tasks[val.category] = [val]
       }
     }
-    console.log(tasks)
     return tasks
   }
 
   async init() {
     await this.storage.create()
-  }
-
-  getAvailableCats() {
-    return this.cats
   }
 
   async getNumTask() {
@@ -81,10 +80,11 @@ export class TodoService {
     await this.storage.clear()
   }
 
-  async addCat(cats:any) {
+  async addCat(cats:string[]) {
     await this.storage.set('cats', cats)
   }
 
+  // used in add task page
   async getCats() {
     return await this.storage.get('cats')
   }
