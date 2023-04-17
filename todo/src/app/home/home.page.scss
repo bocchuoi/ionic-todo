@@ -30,9 +30,9 @@ ion-content {
   --background: rgb(14, 14, 122);
 }
 
-.cat-container {
-  --background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%);
-}
+// .cat-container {
+//   --background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%);
+// }
 
 
 .cat-container ion-card-subtitle {
@@ -49,3 +49,41 @@ ion-icon {
   padding: 3px;
   border-radius: 3px;
 }
+
+.container {
+  display: flex;
+  flex-wrap: wrap; /* Allow flex items to wrap to the next row if needed */
+  gap: 10px; /* Add gap between cards if needed */
+}
+
+.cat-container {
+  flex: 1; /* Allow flex items to grow to fill available space */
+  min-width: 300px; /* Set a minimum width for each column, adjust as needed */
+}
+
+.card-column {
+  width: 100%; /* Set width to 100% to take up full width of the column */
+}
+
+
+.cat-0 {
+  background-color: #001affbd; /* Example background color for category 0 */
+}
+
+.cat-1 {
+  background-color: #00a2ffbd; /* Example background color for category 1 */
+}
+
+.cat-2 {
+  background-color: #00eeffbd; /* Example background color for category 2 */
+}
+
+.cat-3 {
+  background-color: #00ff88bd; /* Example background color for category 2 */
+}
+
+.cat-4 {
+  background-color: #00ff2abd; /* Example background color for category 2 */
+}
+
+/* Add more classes for additional categories as needed */

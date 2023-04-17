@@ -1,3 +1,6 @@
+// Phuong Hoang - 101306676
+// Truong Thi Bui - 101300750
+// Robert Kaczur - 10101489
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular'
 
@@ -6,11 +9,12 @@ import { Storage } from '@ionic/storage-angular'
 })
 export class TodoService {
 
-  aDayInMilisec = 1000*60*60*24
+  aDayInMilisec = 1000 * 60 * 60 * 24
 
   constructor(private storage: Storage) {
     this.init()
   }
+  
   addTask(key: string, val: any) {
     this.storage.set(key, val)
   }

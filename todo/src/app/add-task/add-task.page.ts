@@ -12,7 +12,7 @@ export class AddTaskPage implements OnInit {
   btnMsg = ''
   cats:string[] = []
   taskName:string = ''
-  taskDate:number = 0
+  taskDate:string = new Date().toISOString()
   taskPriority:string = ''
   taskCategory:string = ''
   taskDetail:string = ''
@@ -66,8 +66,11 @@ export class AddTaskPage implements OnInit {
     // make sure all the fields are filled in
     if (this.taskDetail && this.taskName && this.taskDate && this.taskPriority && this.taskCategory) {
       let newItemId: number = 0
+
+      let isTaskEmpty = Object.keys(this.task).length === 0;
+
       // add if true
-      if (Object.keys(this.task).length === 0) {
+      if (isTaskEmpty) {
         // id is the number of all the todo items + 1
         newItemId = await this.todoService.getNumTask() + 1
       }
